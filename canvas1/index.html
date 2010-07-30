@@ -11,11 +11,13 @@
 				margin: 0;
 				padding: 0;
 				background: #000;
+				text-align: center;
 			}
 			#c
 			{
 				width: 300px;
 				height: 300px;
+				margin: 20px auto;
 			}
 		</style>
 
@@ -32,20 +34,27 @@
 					var ca = $('#c');
 					var w = ca.width();
 					var h = ca.height();
+
+					var r = function(m) {
+						return Math.random() * (m||1);
+					}
+					var q = function(r)
+					{
+						return Math.round(r);
+					}
 					
 					var c = ca[0].getContext('2d');
-					c.fillStyle = "rgb(200, 0, 0)";
 
 					function Node() {
-						this.color = Math.random() * 0xffffff + '';
-						this.radius = Math.random() * 10 + 5;
-						this.x = Math.random() * w;
-						this.y = Math.random() * h;
+						this.c = 'rgb(' + q(r(255)) + ',' + q(r(255)) + ',' + q(r(255)) + ')'; /* TODO: does rgba work in ie9? */
+						this.r = r(10) + 5;
+						this.x = r() * w;
+						this.y = r() * h;
 					};
 
 					Node.prototype.draw = function() {
-						c.fillStyle = this.color;
-						c.fillRect(this.x, this.y, this.radius, this.radius);
+						c.fillStyle = this.c;
+						c.fillRect(this.x, this.y, this.r, this.r);
 					};
 
 					var nodes = [];
