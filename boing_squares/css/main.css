@@ -1,0 +1,73 @@
+html,
+body
+{
+	font-family: arial;
+	background: #000;
+	height: 100%;
+	color: #ccc;
+	overflow: hidden;
+}
+h1
+{
+	font-size: 200%;
+	padding: 1em 0 .5em;
+}
+a
+{
+	color: #ccc;
+}
+a:hover
+{
+	color: #88f;
+}
+#container
+{
+	margin: 0 auto;
+	width: 400px;
+}
+form
+{
+	margin: 1em 0;
+}
+input
+{
+	border: 1px solid #ccc;
+	background: #333;
+	color: #ddd;
+	padding: 2px;
+}
+input[type=text]
+{
+	width: 350px;
+}
+input[type=submit]
+{
+	width: 40px;
+}
+input[type=submit].loading
+{
+	border: 0;
+	background: transparent url(throbber.gif) no-repeat 50% 50%;
+	text-indent: -2000px;
+}
+.error
+{
+	width: 394px;
+	border: 1px solid #ecc;
+	background: #333;
+	color: #ddd;
+	padding: 2px;
+	margin: 5px 0;
+}
+#picHolder
+{
+	width: 200px;
+	height: 200px;
+	margin: 60px auto 0;
+	position: relative;
+}
+.block
+{
+	position: absolute;
+	border: 1px solid #fff;
+}
