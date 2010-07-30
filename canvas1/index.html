@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-        <title>Tunnel of Stripes</title>
+        <title>Nodes</title>
         <meta charset="utf-8">
         <meta name="description" content="Describe your app">
 
@@ -18,6 +18,7 @@
 				width: 300px;
 				height: 300px;
 				margin: 20px auto;
+				background: #666;
 			}
 		</style>
 
@@ -50,11 +51,21 @@
 						this.r = r(10) + 5;
 						this.x = r() * w;
 						this.y = r() * h;
+						this.vx = r(8) - 4;
+						this.vy = r(8) - 4;
 					};
 
 					Node.prototype.draw = function() {
 						c.fillStyle = this.c;
 						c.fillRect(this.x, this.y, this.r, this.r);
+						this.x += this.vx;
+						this.y += this.vy;
+						if (this.x < 0 || this.x + this.r > w ) {
+							this.vx *= -1;
+						}
+						if (this.y < 0 || this.y + this.r > h) {
+							this.vy *= -1;
+						}
 					};
 
 					var nodes = [];
