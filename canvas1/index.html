@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <title>Tunnel of Stripes</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Describe your app">
+
+		<style type="text/css">
+			*
+			{
+				margin: 0;
+				padding: 0;
+				background: #000;
+			}
+			#c
+			{
+				width: 300px;
+				height: 300px;
+			}
+		</style>
+
+		<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript">
+			$(function()
+				{
+
+					var msPerFrame = 100;
+					var numNodes = 40;
+
+					var x = 0;
+
+					var ca = $('#c');
+					var w = ca.width();
+					var h = ca.height();
+					
+					var c = ca[0].getContext('2d');
+					c.fillStyle = "rgb(200, 0, 0)";
+
+					function Node() {
+						this.color = Math.random() * 0xffffff + '';
+						this.radius = Math.random() * 10 + 5;
+						this.x = Math.random() * w;
+						this.y = Math.random() * h;
+					};
+
+					Node.prototype.draw = function() {
+						c.fillStyle = this.color;
+						c.fillRect(this.x, this.y, this.radius, this.radius);
+					};
+
+					var nodes = [];
+
+					for (var i=0; i<numNodes; i++) {
+						nodes.push(new Node());
+					}
+
+					setInterval(
+						function()
+						{
+							c.clearRect(0, 0, w, h);
+							for (var i=0; i<nodes.length; i++) {
+								nodes[i].draw();
+							}
+						},
+						msPerFrame
+					);
+				}
+			);
+	    </script>
+	</head>
+	<body>
+		<canvas id="c"></canvas>
+	</body>
+</html>
