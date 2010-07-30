@@ -29,6 +29,7 @@
 
 					var msPerFrame = 100;
 					var numNodes = 40;
+					var minDSq = 15000;
 
 					var x = 0;
 
@@ -47,7 +48,8 @@
 					var c = ca[0].getContext('2d');
 
 					function Node() {
-						this.c = 'rgb(' + q(r(255)) + ',' + q(r(255)) + ',' + q(r(255)) + ')'; /* TODO: does rgba work in ie9? */
+						//this.c = 'rgb(' + q(r(255)) + ',' + q(r(255)) + ',' + q(r(255)) + ')'; /* TODO: does rgba work in ie9? */
+						this.c = 'rgb(255, 0, 0)';
 						this.r = r(10) + 5;
 						this.x = r() * w;
 						this.y = r() * h;
@@ -82,7 +84,20 @@
 						{
 							c.clearRect(0, 0, w, h);
 							for (var i=0; i<nodes.length; i++) {
-								nodes[i].draw();
+								var ni = nodes[i];
+								for (var j=i; j<nodes.length; j++) {
+									var nj = nodes[j];
+									var d = ni.x * nj.x + ni.y * nj.y;
+									if (d < minDSq) {
+										c.lineWidth = 1;
+										c.moveTo(ni.x, ni.y);
+										//c.
+										c.lineTo(nj.x, nj.y);
+										c.closePath();
+									}
+									c.fillStyle = 'rgb(255, 255, 255);';
+									nodes[i].draw();
+								}
 							}
 						},
 						msPerFrame
