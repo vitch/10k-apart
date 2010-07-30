@@ -57,7 +57,10 @@
 
 					Node.prototype.draw = function() {
 						c.fillStyle = this.c;
-						c.fillRect(this.x, this.y, this.r, this.r);
+						c.beginPath();
+						c.arc(this.x, this.y, this.r, 0, Math.PI*2, true);
+						c.closePath();
+						c.fill();
 						this.x += this.vx;
 						this.y += this.vy;
 						if (this.x < 0 || this.x + this.r > w ) {
