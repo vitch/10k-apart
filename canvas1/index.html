@@ -15,10 +15,10 @@
 			}
 			#c
 			{
-				width: 300px;
-				height: 300px;
+				width: 500px;
+				height: 500px;
 				margin: 20px auto;
-				background: #666;
+				background: #111;
 			}
 		</style>
 
@@ -28,8 +28,8 @@
 				{
 
 					var msPerFrame = 100;
-					var numNodes = 40;
-					var minDSq = 15000;
+					var numNodes = 400;
+					var minDSq = 60;
 
 					var x = 0;
 
@@ -48,9 +48,8 @@
 					var c = ca[0].getContext('2d');
 
 					function Node() {
-						//this.c = 'rgb(' + q(r(255)) + ',' + q(r(255)) + ',' + q(r(255)) + ')'; /* TODO: does rgba work in ie9? */
-						this.c = 'rgb(255, 0, 0)';
-						this.r = r(10) + 5;
+						this.c = 'rgba(255, 255, 255, .4)';//'rgb(' + q(r(255)) + ',' + q(r(255)) + ',' + q(r(255)) + ')'; /* TODO: does rgba work in ie9? */
+						this.r = 1;//r(10) + 5;
 						this.x = r() * w;
 						this.y = r() * h;
 						this.vx = r(8) - 4;
@@ -59,10 +58,15 @@
 
 					Node.prototype.draw = function() {
 						c.fillStyle = this.c;
+						/*
 						c.beginPath();
 						c.arc(this.x, this.y, this.r, 0, Math.PI*2, true);
 						c.closePath();
 						c.fill();
+						*/
+						c.fillRect(this.x, this.y, this.r, this.r);
+					}
+					Node.prototype.position = function() {
 						this.x += this.vx;
 						this.y += this.vy;
 						if (this.x < 0 || this.x + this.r > w ) {
@@ -85,18 +89,24 @@
 							c.clearRect(0, 0, w, h);
 							for (var i=0; i<nodes.length; i++) {
 								var ni = nodes[i];
+								ni.position();
+								ni.draw();
 								for (var j=i; j<nodes.length; j++) {
 									var nj = nodes[j];
-									var d = ni.x * nj.x + ni.y * nj.y;
+									var dx = ni.x - nj.x;
+									var dy = ni.y - nj.y;
+									var d = dx * dx + dy * dy;
 									if (d < minDSq) {
 										c.lineWidth = 1;
+										c.strokeStyle = 'rgba(255, 255, 255, .5)';
+										c.beginPath();
 										c.moveTo(ni.x, ni.y);
-										//c.
 										c.lineTo(nj.x, nj.y);
 										c.closePath();
+										c.stroke();
+										//ni.draw();
+										//nj.draw();
 									}
-									c.fillStyle = 'rgb(255, 255, 255);';
-									nodes[i].draw();
 								}
 							}
 						},
